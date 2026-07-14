@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f6efdf;
+  --paper-dark: #ece0c6;
+  --ink: #3a2c1d;
+  --ink-soft: #6b5842;
+  --accent: #a8562f;
+  --accent-soft: #c98a55;
+  --green: #4f7942;
+  --yellow: #b8860b;
+  --red: #a13d3d;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-dark: var(--paper-dark);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+}
+
+body {
+  background: var(--paper);
+  background-image: radial-gradient(circle at 20% 10%, rgba(168, 86, 47, 0.06), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(168, 86, 47, 0.05), transparent 45%);
+  color: var(--ink);
+  font-family: "Noto Serif SC", "Georgia", ui-serif, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: #fff;
+}
+
+.card {
+  background: #fffaf0;
+  border: 1px solid #e2d3ae;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(90, 60, 20, 0.08);
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #fff9ef;
+  border-radius: 999px;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn-accent:hover {
+  background: #8c4423;
+  transform: translateY(-1px);
+}
+
+.chip {
+  background: var(--paper-dark);
+  border: 1px solid #d9c69a;
+  color: var(--ink-soft);
+  border-radius: 999px;
+  transition: background 0.15s ease;
+}
+.chip:hover {
+  background: #e2cf9f;
+}
