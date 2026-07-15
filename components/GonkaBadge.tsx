@@ -23,21 +23,19 @@ export function GonkaBadge({ entries }: { entries: GonkaRequestEntry[] }) {
 
   return (
     <div
+      className="fixed z-[1000] right-2 bottom-2 md:right-4 md:bottom-4"
       style={{
-        position: "fixed",
-        right: 16,
-        bottom: 16,
-        zIndex: 1000,
         fontFamily: "ui-monospace, monospace",
         fontSize: 12,
+        maxWidth: "calc(100vw - 16px)",
       }}
     >
       {open && (
         <div
+          className="max-h-[45vh] md:max-h-[260px]"
           style={{
             marginBottom: 8,
-            maxHeight: 260,
-            width: 340,
+            width: "min(340px, calc(100vw - 16px))",
             overflowY: "auto",
             background: "rgba(17,17,27,0.95)",
             color: "#d7d7e0",
@@ -62,17 +60,19 @@ export function GonkaBadge({ entries }: { entries: GonkaRequestEntry[] }) {
       )}
       <button
         onClick={() => setOpen((v) => !v)}
+        className="text-[10px] md:text-xs"
         style={{
           ...btn,
-          padding: "8px 14px",
+          padding: "6px 10px",
           borderRadius: 999,
           background: "#111120",
           border: "1px solid #3b3b52",
           color: "#d7d7e0",
           boxShadow: "0 2px 10px rgba(0,0,0,0.35)",
+          minHeight: 32,
         }}
       >
-        ⚡ Powered by Gonka · {entries.length} Request ID{entries.length === 1 ? "" : "s"}
+        ⚡ Gonka · {entries.length} ID{entries.length === 1 ? "" : "s"}
       </button>
     </div>
   );

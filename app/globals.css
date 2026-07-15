@@ -62,7 +62,60 @@ body {
   color: var(--ink-soft);
   border-radius: 999px;
   transition: background 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .chip:hover {
   background: #e2cf9f;
+}
+
+.zh-serif {
+  font-family: "Songti SC", "STSong", "Noto Serif SC", "Georgia", ui-serif, serif;
+}
+
+.hero-banner {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(90, 60, 20, 0.15);
+}
+
+.hero-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(58, 44, 29, 0.15) 0%,
+    rgba(58, 44, 29, 0.35) 55%,
+    rgba(58, 44, 29, 0.78) 100%
+  );
+}
+
+.paper-card {
+  background: #fdf6e6;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(168, 86, 47, 0.02),
+    rgba(168, 86, 47, 0.02) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  border: 1px solid #e2d3ae;
+  border-radius: 10px;
+}
+
+.chip-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+@media (min-width: 640px) {
+  .chip-scroll {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
 }

@@ -1,9 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { GonkaBadge, GonkaRequestEntry } from "@/components/GonkaBadge";
 import type { AskErrorResponse, AskResponse, VerifiedParagraph } from "@/lib/types";
+
+const EMPTY_STATE_CARDS = [
+  { src: "/art/accent-letters.webp", zh: "一封侨批的旅程", en: "The journey of a Qiaopi letter" },
+  { src: "/art/accent-village.webp", zh: "侨乡的故事", en: "Stories from the hometown" },
+  { src: "/art/accent-museum.webp", zh: "史料与见证", en: "Archives and witnesses" },
+];
 
 type Lang = "zh" | "en";
 
@@ -65,37 +72,54 @@ export default function HomePage() {
   }
 
   return (
-    <main className="min-h-screen px-4 py-10 md:px-8">
+    <main className="min-h-screen px-4 py-6 md:py-10 md:px-8 pb-20">
       <div className="mx-auto max-w-3xl">
-        <header className="mb-8 flex flex-col items-center text-center gap-2">
-          <h1 className="text-3xl md:text-4xl font-bold text-ink tracking-wide">侨批知识 · QiaopiWiki</h1>
-          <p className="text-ink-soft text-sm md:text-base">
-            多语言开放知识问答 · A multilingual open knowledge Q&amp;A engine about Qiaopi
-          </p>
-          <nav className="mt-2 flex gap-4 text-sm text-accent underline underline-offset-4">
-            <Link href="/about">关于项目 / About</Link>
-          </nav>
-        </header>
+        <div className="hero-banner relative h-[240px] sm:h-[300px] md:h-[360px] mb-8">
+          <Image
+            src="/art/hero-attic.webp"
+            alt="老宅阁楼中，一位年轻女性捧着一封泛黄的旧信封"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="object-cover object-[center_20%]"
+          />
+          <div className="relative z-10 h-full flex flex-col items-center justify-end text-center gap-1.5 px-4 pb-5 md:pb-7">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#fff9ef] tracking-wide drop-shadow-md">
+              侨批知识 · QiaopiWiki
+            </h1>
+            <p className="text-[#f6efdf] text-xs sm:text-sm md:text-base drop-shadow">
+              多语言开放知识问答 · A multilingual open knowledge Q&amp;A engine about Qiaopi
+            </p>
+            <nav className="mt-1 flex items-center gap-2 text-xs sm:text-sm">
+              <Link
+                href="/about"
+                className="text-[#fff9ef] underline underline-offset-4 decoration-[#c98a55] min-h-[44px] flex items-center"
+              >
+                关于项目 / About
+              </Link>
+            </nav>
+          </div>
+        </div>
 
-        <div className="card p-5 md:p-6 mb-6">
+        <div className="card p-4 sm:p-5 md:p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex gap-2">
               <button
                 onClick={() => setLang("zh")}
-                className={`chip px-4 py-1.5 text-sm ${lang === "zh" ? "!bg-accent !text-white" : ""}`}
+                className={`chip px-4 py-2 text-sm min-h-[44px] ${lang === "zh" ? "!bg-accent !text-white" : ""}`}
               >
                 中文
               </button>
               <button
                 onClick={() => setLang("en")}
-                className={`chip px-4 py-1.5 text-sm ${lang === "en" ? "!bg-accent !text-white" : ""}`}
+                className={`chip px-4 py-2 text-sm min-h-[44px] ${lang === "en" ? "!bg-accent !text-white" : ""}`}
               >
                 EN
               </button>
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="chip-scroll gap-2 mb-4 -mx-1 px-1">
             {PRESETS.map((p, i) => (
               <button
                 key={i}
@@ -103,7 +127,7 @@ export default function HomePage() {
                   setQuestion(lang === "en" ? p.en : p.zh);
                   ask(lang === "en" ? p.en : p.zh);
                 }}
-                className="chip px-3 py-1 text-xs"
+                className="chip px-3 py-2 text-xs min-h-[44px]"
               >
                 {p.zh === p.en ? p.zh : lang === "en" ? p.en : p.zh}
               </button>
@@ -115,15 +139,19 @@ export default function HomePage() {
               e.preventDefault();
               ask(question);
             }}
-            className="flex gap-2"
+            className="flex flex-col sm:flex-row gap-2"
           >
             <input
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               placeholder={lang === "en" ? "Ask about Qiaopi..." : "问问侨批的故事……"}
-              className="flex-1 rounded-full border border-[#d9c69a] bg-white px-4 py-2 text-sm outline-none focus:border-accent"
+              className="flex-1 w-full rounded-full border border-[#d9c69a] bg-white px-4 py-3 sm:py-2 text-sm outline-none focus:border-accent min-h-[44px]"
             />
-            <button type="submit" disabled={loading} className="btn-accent px-5 py-2 text-sm disabled:opacity-50">
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-accent w-full sm:w-auto px-5 py-3 sm:py-2 text-sm disabled:opacity-50 min-h-[44px]"
+            >
               {loading ? (lang === "en" ? "Asking…" : "查询中…") : lang === "en" ? "Ask" : "提问"}
             </button>
           </form>
@@ -133,14 +161,35 @@ export default function HomePage() {
           <div className="card p-4 mb-6 border-red-300 bg-red-50 text-red-800 text-sm">{error}</div>
         )}
 
+        {!paragraphs && !error && !loading && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+            {EMPTY_STATE_CARDS.map((c) => (
+              <div key={c.src} className="card overflow-hidden">
+                <div className="relative w-full h-36 sm:h-40">
+                  <Image
+                    src={c.src}
+                    alt={c.zh}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <p className="zh-serif text-center text-xs sm:text-sm text-ink-soft py-2 px-2">
+                  {lang === "en" ? c.en : c.zh}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+
         {paragraphs && (
           <div className="space-y-4">
             {paragraphs.map((p, i) => (
-              <div key={i} className="card p-5">
-                <p className="text-ink leading-relaxed mb-3">{p.text}</p>
+              <div key={i} className="card p-4 sm:p-5">
+                <p className="zh-serif text-ink leading-[1.9] mb-3 text-[15px] sm:text-base">{p.text}</p>
                 <div className="flex flex-wrap items-center gap-2 mb-2">
                   <span
-                    className={`text-xs px-2 py-0.5 rounded-full border ${verdictColor[p.verdict]}`}
+                    className={`text-xs px-2 py-1 rounded-full border ${verdictColor[p.verdict]}`}
                     title={p.note}
                   >
                     {lang === "en" ? verdictLabel[p.verdict].en : verdictLabel[p.verdict].zh}
@@ -148,7 +197,7 @@ export default function HomePage() {
                   {p.resolvedCitations.length > 0 && (
                     <button
                       onClick={() => setExpanded((prev) => ({ ...prev, [i]: !prev[i] }))}
-                      className="text-xs text-accent underline underline-offset-2"
+                      className="text-xs text-accent underline underline-offset-2 min-h-[44px] px-1"
                     >
                       {expanded[i]
                         ? lang === "en"
@@ -162,9 +211,9 @@ export default function HomePage() {
                 </div>
                 {p.note && <p className="text-xs text-ink-soft italic mb-2">{p.note}</p>}
                 {expanded[i] && (
-                  <div className="mt-2 space-y-2 border-t border-[#e2d3ae] pt-3">
+                  <div className="paper-card mt-2 space-y-2 p-3">
                     {p.resolvedCitations.map((c) => (
-                      <div key={c.id} className="text-xs text-ink-soft">
+                      <div key={c.id} className="text-xs text-ink-soft leading-relaxed">
                         <span className="font-mono text-accent">[{c.id}]</span> {c.text}
                         <span className="opacity-70"> — {c.source}</span>
                       </div>

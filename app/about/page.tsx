@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function AboutPage() {
@@ -11,9 +12,12 @@ export default function AboutPage() {
         <h1 className="text-3xl font-bold text-ink mt-4 mb-2">关于 QiaopiWiki</h1>
         <p className="text-ink-soft mb-8 text-sm">About QiaopiWiki</p>
 
-        <section className="card p-6 mb-6">
+        <section className="card p-6 mb-6 overflow-hidden">
+          <div className="float-right ml-4 mb-2 w-28 sm:w-36 relative aspect-[2/3] rounded-lg overflow-hidden border border-[#e2d3ae]">
+            <Image src="/art/accent-letters.webp" alt="旧樟木箱中泛黄的侨批信件" fill sizes="144px" className="object-cover" />
+          </div>
           <h2 className="text-xl font-semibold text-ink mb-2">项目简介 · Project Intro</h2>
-          <p className="text-ink leading-relaxed mb-3">
+          <p className="zh-serif text-ink leading-relaxed mb-3">
             QiaopiWiki 是一个面向侨批（Qiaopi，海外华侨银信）的多语言开放知识问答引擎，为 AI³ Hackathon
             Gonka 赛道而作。侨批档案已于 2013 年入选联合国教科文组织《世界记忆名录》，是研究近现代华侨史珍贵的第一手史料。
             我们希望用 AI 让这段历史更容易被检索、理解与传播。
@@ -27,7 +31,7 @@ export default function AboutPage() {
 
         <section className="card p-6 mb-6">
           <h2 className="text-xl font-semibold text-ink mb-2">诚实降级 · Honest Degradation</h2>
-          <p className="text-ink leading-relaxed mb-3">
+          <p className="zh-serif text-ink leading-relaxed mb-3">
             每一个回答都必须溯源到知识库中的具体片段。我们不追求"看起来聪明"的回答，而是让 AI
             诚实地承认知识边界：Kimi 仅基于检索到的片段作答，MiniMax
             独立校验每段是否真正可从引用片段中推导，并标注"可溯源 / 部分不可溯源 / 不可溯源"，
@@ -42,9 +46,12 @@ export default function AboutPage() {
           </p>
         </section>
 
-        <section className="card p-6 mb-6">
+        <section className="card p-6 mb-6 overflow-hidden">
+          <div className="float-left mr-4 mb-2 w-28 sm:w-36 relative aspect-[2/3] rounded-lg overflow-hidden border border-[#e2d3ae]">
+            <Image src="/art/accent-village.webp" alt="岭南侨乡古村榕树下的街巷" fill sizes="144px" className="object-cover" />
+          </div>
           <h2 className="text-xl font-semibold text-ink mb-2">AI for Society</h2>
-          <p className="text-ink leading-relaxed mb-3">
+          <p className="zh-serif text-ink leading-relaxed mb-3">
             侨批承载着华侨华人跨越百年的乡愁与诚信精神。通过去中心化的 Gonka
             网络驱动问答与交叉验证，我们希望展示 AI 如何服务于文化遗产的开放获取与公共教育，
             而非被少数机构垄断叙事权。
