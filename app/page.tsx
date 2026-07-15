@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import { GonkaBadge, GonkaRequestEntry } from "@/components/GonkaBadge";
+import { HeroCarousel } from "@/components/HeroCarousel";
+import { MusicToggle } from "@/components/MusicToggle";
 import type { AskErrorResponse, AskResponse, VerifiedParagraph } from "@/lib/types";
 
 const EMPTY_STATE_CARDS = [
@@ -74,32 +75,13 @@ export default function HomePage() {
   return (
     <main className="min-h-screen px-4 py-6 md:py-10 md:px-8 pb-20">
       <div className="mx-auto max-w-3xl">
-        <div className="hero-banner relative h-[240px] sm:h-[300px] md:h-[360px] mb-8">
-          <Image
-            src="/art/hero-attic.webp"
-            alt="老宅阁楼中，一位年轻女性捧着一封泛黄的旧信封"
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 768px"
-            className="object-cover object-[center_20%]"
-          />
-          <div className="relative z-10 h-full flex flex-col items-center justify-end text-center gap-1.5 px-4 pb-5 md:pb-7">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#fff9ef] tracking-wide drop-shadow-md">
-              侨批知识 · QiaopiWiki
-            </h1>
-            <p className="text-[#f6efdf] text-xs sm:text-sm md:text-base drop-shadow">
-              多语言开放知识问答 · A multilingual open knowledge Q&amp;A engine about Qiaopi
-            </p>
-            <nav className="mt-1 flex items-center gap-2 text-xs sm:text-sm">
-              <Link
-                href="/about"
-                className="text-[#fff9ef] underline underline-offset-4 decoration-[#c98a55] min-h-[44px] flex items-center"
-              >
-                关于项目 / About
-              </Link>
-            </nav>
-          </div>
-        </div>
+        <HeroCarousel
+          lang={lang}
+          onPickQuestion={(q) => {
+            setQuestion(q);
+            ask(q);
+          }}
+        />
 
         <div className="card p-4 sm:p-5 md:p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
@@ -225,6 +207,7 @@ export default function HomePage() {
           </div>
         )}
       </div>
+      <MusicToggle />
       <GonkaBadge entries={entries} />
     </main>
   );

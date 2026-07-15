@@ -64,6 +64,22 @@ export default function AboutPage() {
           </p>
         </section>
 
+        <section className="card p-6 mb-6">
+          <h2 className="text-xl font-semibold text-ink mb-2">片尾曲《批到了》 · Ending Song</h2>
+          <p className="text-ink-soft leading-relaxed text-sm mb-3">
+            &ldquo;Pī Dào Le&rdquo; (&ldquo;The letter has arrived&rdquo;) — an original ending song written for the Qiaopi
+            interactive story that inspired this project.
+          </p>
+          <audio controls preload="none" className="w-full mb-3">
+            <source src="/audio/ending-song.mp3" type="audio/mpeg" />
+          </audio>
+          <blockquote className="zh-serif text-ink leading-relaxed border-l-4 border-accent-soft pl-3 text-sm italic">
+            批到了，家就到了
+            <br />
+            隔山隔海，情意不老
+          </blockquote>
+        </section>
+
         <section className="card p-6">
           <h2 className="text-xl font-semibold text-ink mb-2">技术架构 · Architecture</h2>
           <ul className="text-ink-soft text-sm leading-relaxed list-disc pl-5 space-y-1">
